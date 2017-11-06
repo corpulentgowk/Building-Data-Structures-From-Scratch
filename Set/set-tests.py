@@ -19,14 +19,14 @@ failedTestCases.append(testA.failedCases)
 #Testing Removal
 expectedResult = [{5: 0, 2: 1, 3: 2, 4: 3}, [5, 2, 3, 4]]
 testA.executeCommands("remove", [1], str(expectedResult))
-allTestPassed = allTestPassed & testA.passed
+allTestPassed = allTestPassed and testA.passed
 failedTestCases.append(testA.failedCases)
 
 
 #Testing Inserting Duplicate Element
 expectedResult = [{5: 0, 2: 1, 3: 2, 4: 3}, [5, 2, 3, 4]]
 testA.executeCommands("insert", [5], str(expectedResult))
-allTestPassed = allTestPassed & testA.passed
+allTestPassed = allTestPassed and testA.passed
 failedTestCases.append(testA.failedCases)
 
 if allTestPassed:
