@@ -11,6 +11,7 @@ class test(object):
 			testCase += [str(self.dataStruct), "Expected: '" + str(expectedResult) + "' Got: '" + str(self.dataStruct) + "'. "]
 			self.failedCases.append(testCase)
 			self.passed = False
+
 	def validateTruth(self, expectedResult, truthness, testCase):
 		if truthness == expectedResult:
 			self.passed = self.passed and True
@@ -21,6 +22,7 @@ class test(object):
 
 	def executeCommands(self, func, inputs, expectedResult, truthy=False):
 		method = getattr(self.dataStruct, func)
+		
 		if not truthy:
 			if inputs:
 				for inpt in inputs:
@@ -29,5 +31,9 @@ class test(object):
 				method()
 			self.validateResult(expectedResult, [func, inputs])
 		else:
-			truthness = method()
+			if inputs:
+				for inpt in inputs:
+					method(inpt)
+			else:
+				truthness = method()
 			self.validateTruth(expectedResult, truthness, [func])
