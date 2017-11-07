@@ -64,3 +64,43 @@ class LinkedList(object):
 						self.root = None #Reset Root.
 			prev = curr
 			curr = curr.next
+
+	def isPalindrome(self):
+		head = self.root
+		return self.palindrome(head, head)[1]
+
+	def palindrome(self, head, curr): 
+		"""
+		Recurs down to the last node(n-th node) and compares the head to the last node. 
+		Returns the node that follows the head so that when the recursion pops back to the n-1th node its comparing to the 2nd node
+		
+		Area for improvement. This scans comparing the n == 0 | (n-1) == 1 | (n-2) == 2 | (n-3) == 3 | ....
+		Once the compared nodes cross each other at the midpoint we know wether or not its a palindrome. No need to compare further.
+		But it does not affect the time complexity as the recursive tree has to be back tracked regardless. Comparisons are O(1) and so
+		would checking to see if you reached the midpoint. 
+
+		Would also need an O(n) operation to determine the length. Alternatively I could 
+		Reformat this data structure to keep track of the current length of the linked list. Dec/Inc as nodes are added or removed but I wanted to make
+		A palindrome function that can be generalized to any standard Linked List. 
+		"""
+		if not curr.next:
+			#print head.val, curr.val
+			if curr.val == head.val:
+				return [head.next, True]
+			else:
+				return [head.next, False]
+		localCurr = curr
+		res = self.palindrome(head, curr.next)
+		#print res[0].val, curr.val
+
+		if res[1] == False:
+			return [res[0].next, False] #Short Circuit after the first mismatch. No need to continue comparisons
+		else:
+			if res[0].val == curr.val:
+				return [res[0].next, True]
+			else:
+				return [res[0].next, False]
+
+
+
+
