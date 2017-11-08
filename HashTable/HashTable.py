@@ -6,7 +6,7 @@ class Bucket(object):
 
 class HashMap(object):
 
-	def __init__(self, size = 2): #256 / Power of 2
+	def __init__(self, size = 1 << 8): #256 / Power of 2
 		self.size = size
 		self.numElements = 0
 		self.buckets = [None] * size
@@ -119,15 +119,6 @@ class HashMap(object):
 		return False 
 
 h = HashMap()
-h.insert(1, "first")
-h.insert(2, "second")
-h.insert(3, "third")
-h.insert(4, "third")
-h.remove(4)
-h.remove(1)
-h.remove(2)
-
-
 
 print h.buckets
 for l in h.buckets:
