@@ -6,7 +6,7 @@ class Bucket(object):
 
 class HashMap(object):
 
-	def __init__(self, size = 1 << 8): #256 / Power of 2
+	def __init__(self, size = 2): #256 / Power of 2
 		self.size = size
 		self.numElements = 0
 		self.buckets = [None] * size
@@ -41,13 +41,12 @@ class HashMap(object):
 
 		while self.buckets[ind]:
 
-			if self.buckets[ind].key != key:
-				ind += 1
-
-			else:
+			if self.buckets[ind].key == key:
 				self.numElements -= 1
 				self.buckets[ind] = None #Free the location where the key already exists
 				return
+			
+			ind += 1
 
 			if ind > self.size - 1: #Reached the end of the list of buckets.
 				ind = 0 #Continue searching from beggining. 
@@ -55,10 +54,51 @@ class HashMap(object):
 			if ind == startInd: #Back to where the probe started.
 				raise Exception("The Hashtable does not contain the specified key")
 
-		raise Exception("The Hashtable does not contain the specified key") #Encounter a NoneType in the Array
-																			#Key Not found
+		raise Exception("The Hashtable does not contain the specified key") 
+		#Encountered a NoneType in the Array which broke the While Loop However, the key was not found.
+		#Does not exist
 
+	def lookup(self, key):
 
+		ind = self.hashFunction(key)
+		startInd = ind
+
+		while self.buckets[ind]:
+
+			if self.buckets[ind].key == key:
+				return self.buckets[ind].value
+			
+			ind += 1
+
+			if ind > self.size - 1: 
+				ind = 0 
+
+			if ind == startInd: 
+				raise Exception("The Hashtable does not contain the specified key")
+
+		raise Exception("The Hashtable does not contain the specified key") 
+		#Encountered a NoneType in the Array which broke the While Loop However, the key was not found.
+		#Does not exist
+
+	def isIn(self, key):
+
+		ind = self.hashFunction(key)
+		startInd = ind
+
+		while self.buckets[ind]:
+
+			if self.buckets[ind].key == key:
+				return True
+			
+			ind += 1
+
+			if ind > self.size - 1: 
+				ind = 0 
+
+			if ind == startInd: 
+				return False
+
+		return False 
 
 h = HashMap()
 
