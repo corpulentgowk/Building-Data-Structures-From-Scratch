@@ -14,10 +14,21 @@ class HashMap(object):
 	def hashFunction(self, key):
 		return hash(key) % self.size
 
+	def rehash(self, newSize):
+		self.size = newSize
+		oldBuckets = self.buckets
+		self.buckets = [None] * newSize
+		self.numElements = 0
+
+		for bucket in oldBuckets:
+			if bucket:
+				self.insert(bucket.key, bucket.value)
+
+
 	def insert(self, key, value): 
 
 		if self.numElements >= self.size:
-			raise Exception("HashMap Full")
+			raise Exception("FATAL ERROR: HashMap Full")
 
 		ind = self.hashFunction(key)
 
@@ -34,6 +45,9 @@ class HashMap(object):
 		self.buckets[ind] = Bucket(key, value)
 		self.numElements += 1
 
+		if (float(self.numElements)/float(self.size)) > .75:
+			self.rehash(self.size << 1) #Double Size of Hash Table and Rehash the elements
+
 	def remove(self, key):
 
 		ind = self.hashFunction(key)
@@ -44,6 +58,10 @@ class HashMap(object):
 			if self.buckets[ind].key == key:
 				self.numElements -= 1
 				self.buckets[ind] = None #Free the location where the key already exists
+
+				if (float(self.numElements)/float(self.size)) < .25:
+					self.rehash(self.size >> 1) #Halve the Size of Hash Table and Rehash the elements
+
 				return
 			
 			ind += 1
@@ -101,7 +119,17 @@ class HashMap(object):
 		return False 
 
 h = HashMap()
+h.insert(1, "first")
+h.insert(2, "second")
+h.insert(3, "third")
+h.insert(4, "third")
+h.remove(4)
+h.remove(1)
+h.remove(2)
 
+
+
+print h.buckets
 for l in h.buckets:
 	if l:
 		print l.key, l.value
