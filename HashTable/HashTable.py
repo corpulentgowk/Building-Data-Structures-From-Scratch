@@ -49,7 +49,7 @@ class HashMap(object):
 				self.buckets[ind] = None #Free the location where the key already exists
 				return
 
-			if ind > self.size - 1: #Reached the end of the list of buckets
+			if ind > self.size - 1: #Reached the end of the list of buckets.
 				ind = 0 #Continue searching from beggining. 
 
 			if ind == startInd: #Back to where the probe started.
