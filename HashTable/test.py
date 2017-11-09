@@ -31,6 +31,15 @@ testA.executeCommands("remove", [5], expectedResult, False, True) #Skip Validati
 expectedResult = False
 testA.executeCommands("isIn", [5], expectedResult, True)
 
+#Validating Reinsertions
+expectedResult = "newFive"
+testA.executeCommands("insert", [[5, "newFive"]], expectedResult, False, True) #Skip Validation of insert
+
+expectedResult = True
+testA.executeCommands("isIn", [5], expectedResult, True)
+
+expectedResult = "newFive"
+testA.executeCommands("lookup",[5], expectedResult, True)
 
 
 allTestPassed = allTestPassed and testA.passed
