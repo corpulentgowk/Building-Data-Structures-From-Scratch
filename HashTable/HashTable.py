@@ -35,7 +35,6 @@ class HashMap(object):
 		while self.buckets[ind]:
 
 			if self.buckets[ind].key == key:
-				self.numElements += 1
 				self.buckets[ind].value = value #Update exisisting bucket key with new value.
 				return #Insert complete/Could have alternatively breaked here and just made a new bucket. 
 
