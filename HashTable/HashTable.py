@@ -117,10 +117,3 @@ class HashMap(object):
 
 		return False 
 
-h = HashMap()
-
-print h.buckets
-for l in h.buckets:
-	if l:
-		print l.key, l.value
-

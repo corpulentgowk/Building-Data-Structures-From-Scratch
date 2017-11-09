@@ -20,20 +20,32 @@ class test(object):
 			self.failedCases.append(testCase)
 			self.passed = False
 
-	def executeCommands(self, func, inputs, expectedResult, truthy=False):
+	def executeCommands(self, func, inputs, expectedResult, ret=False, skipValidation = False):
 		method = getattr(self.dataStruct, func)
 		
-		if not truthy:
+		if not ret: #If no return is expected
 			if inputs:
 				for inpt in inputs:
-					method(inpt)
+					if type(inpt) is list: #If there are more than one argument to each method
+						self.funcMap(method, inpt)
+					else:
+						method(inpt)
 			else:
 				method()
-			self.validateResult(expectedResult, [func, inputs])
+			if not skipValidation:
+				self.validateResult(expectedResult, [func, inputs])
 		else:
 			if inputs:
+				truthness = True #Here if the return type is true or false. True and "Somestring" yeils "Somestring"
 				for inpt in inputs:
-					method(inpt)
+					if type(inpt) is list: #If there are more than one argument to each method
+						truthness = truthness and self.funcMap(method, inpt)
+					else:
+						truthness = truthness and method(inpt)
 			else:
 				truthness = method()
-			self.validateTruth(expectedResult, truthness, [func])
+			if not skipValidation:
+				self.validateTruth(expectedResult, truthness, [func])
+	
+	def funcMap(self, func, args): 
+		return func(*args)
