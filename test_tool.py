@@ -36,7 +36,7 @@ class test(object):
 				self.validateResult(expectedResult, [func, inputs])
 		else:
 			if inputs:
-				truthness = True #Here if the return type is true or false. True and "Somestring" yeils "Somestring"
+				truthness = True #Here if the return type is true or false. True and "Somestring" yeilds "Somestring"
 				for inpt in inputs:
 					if type(inpt) is list: #If there are more than one argument to each method
 						truthness = truthness and self.funcMap(method, inpt)

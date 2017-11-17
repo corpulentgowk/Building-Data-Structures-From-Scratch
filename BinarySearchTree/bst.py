@@ -33,7 +33,7 @@ class BST(object):
 			else:
 				raise Exception("Duplicate Key") #This BST Does not Allow for Duplicates. 
 	def remove(self, val):
-		self.delete(val, self.root)
+		self.root = self.delete(val, self.root)
 	def delete(self, val, currNode):
 		'''
 		Replacing has three cases. 
@@ -45,7 +45,7 @@ class BST(object):
 		Case 3: The node has two children. Replace the node with the smallest node in its right subtree
 		or replace the node with the largest value in its left subtree so the BST properties hold true. 
 		'''
-		
+
 		if not currNode: #Null Node
 			return None
 
@@ -97,6 +97,7 @@ class BST(object):
 
 a = BST()
 
+
 a.insert(2)
 a.insert(1)
 a.insert(10)
@@ -113,5 +114,3 @@ a.remove(2)
 a.remove(1)
 
 print a.lookup(1)
-
-
