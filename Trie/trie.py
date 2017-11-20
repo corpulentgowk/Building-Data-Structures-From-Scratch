@@ -36,11 +36,9 @@ class trieTree(object):
 				curr_node = curr_node[char]
 			else:
 				return False
-		return True	
+				
+		if "End" in curr_node:
+			return len(curr_node) >= 2 #Must contain at least 2 keys. One for "End" and another for at least on char child.
+		else:
+			return len(curr_node) >= 1 #Not the end of the word so it must contain at 
 
-t = trieTree()
-t.insert("hello")
-t.insert("hellbent")
-t.insert("hell")
-t.insert("healthy") 
-print t.isPrefix("helll")
