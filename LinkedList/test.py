@@ -1,6 +1,5 @@
 import sys 
 sys.path.append('..')
-import random
 from test_tool import test
 from linkedlist import LinkedList
 

@@ -1,6 +1,5 @@
 import sys 
 sys.path.append('..')
-import random
 import test_tool as TEST
 import set as SET
 
